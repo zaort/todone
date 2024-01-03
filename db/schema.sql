@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS todone_db;
+CREATE DATABASE todone_db;
