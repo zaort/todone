@@ -34,3 +34,13 @@ function getRemainingTimeUntilDueDate(dueDate) {
 }
 
 module.exports = { getRemainingTimeUntilDueDate };
+
+// Below code should be added in order to use the duedate helpers app.
+
+// const helpers = require('./helpers');
+
+// const dueDate = '12/31/2023';
+// const { daysRemaining, weeksRemaining } = helpers.getRemainingTimeUntilDueDate(dueDate);
+
+// console.log(`Days remaining until due date: ${daysRemaining}`);
+// console.log(`Weeks remaining until due date: ${weeksRemaining}`);

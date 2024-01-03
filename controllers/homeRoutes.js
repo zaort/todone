@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 router.get('/profile', middleAuth, async (req, res) => {
  try {
   // Find the logged in user based on the session ID
-  const userdbInfo = await User.findByPk(req.session.user_id, {
+  const userdbInfo = await User.findByPk(req.session.userId, {
    attributes: { exclude: ['password'] },
    include: [{ model: List }],
   });

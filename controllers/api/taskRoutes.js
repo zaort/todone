@@ -7,7 +7,11 @@ router.post('/', middleAuth, async (req, res) => {
  try {
   const newTask = await List.create({
    ...req.body,
-   user_id: req.session.user_id,
+   title: req.body.title,
+   description: req.body.description,
+   userId: req.session.userId,
+   dueDate: req.body.dueDate,
+   // verify correct syntax for dueDate
   });
 
   res.status(200).json(newTask);
@@ -22,7 +26,7 @@ router.delete('/:id', middleAuth, async (req, res) => {
   const taskData = await List.destroy({
    where: {
     id: req.params.id,
-    user_id: req.session.user_id,
+    userId: req.session.userId,
    },
   });
 
@@ -44,8 +48,10 @@ router.put('/:id', middleAuth, async (req, res) => {
   // verify this makes sense for updating completition status (tru or false)
   const taskStatus = await List.update({
    where: {
-    id: req.params.id,
-    user_id: req.session.user_id,
+    title: req.body.title,
+    description: req.body.description,
+    userId: req.session.userId,
+    dueDate: req.body.dueDate,
    },
   });
 
@@ -61,3 +67,15 @@ router.put('/:id', middleAuth, async (req, res) => {
 });
 
 module.exports = router;
+
+// try {
+//  // Extract the list data from the request body
+//  const { title, description, dueDate, userId } = req.body;
+
+//  // Create a new list using the List model
+//  const newList = await List.create({
+//   title,
+//   description,
+//   dueDate,
+//   userId
+//  });
