@@ -15,7 +15,7 @@ const seedDatabase = async () => {
     for (const list of ListData) {
         await List.create({
             ...list,
-            user_id: users[Math.floor(Math.random() * users.length)].id
+            userId: users[Math.floor(Math.random() * users.length)].id
         });
     }
 
