@@ -1,9 +1,15 @@
 <nav class="w-52 bg-gray-200 text-slate-900">
     <h1 class="text-xl font-bold mb-4">ToDone</h1>
     <div class="flex w-44 bg-slate-950 w-40">
-        <button id="placeholder_addTodoBtn"
-            class="bg-gray-400 w-full text-white py-2 rounded-md mt-4 hover:bg-gray-500 focus:outline-none focus:ring focus:border-gray-500">
+        <button id="showAddFormBtn"
+            class="bg-gray-400 w-full text-white py-2 rounded-md mt-4 hover:bg-gray-500 focus:outline-none focus:ring focus:border-gray-500" >
             Add Todo
         </button>
     </div>
+    {{#if loggedIn}}
+    <button id="logoutBtn"
+        class="bg-gray-400 w-full text-white py-2 rounded-md mt-4 hover:bg-gray-500 focus:outline-none focus:ring focus:border-gray-500">
+        Logout
+    </button>
+    {{/if}}
 </nav>

@@ -1,16 +1,16 @@
-{{#each placeholder_todos as |placeholder_todo| }}
-<div id="todo" class="flex items-center justify-between bg-white p-4 mb-4 rounded-md shadow-md">
+{{#each tasks as |task| }}
+<div id="task" class="flex items-center justify-between bg-white p-4 mb-4 rounded-md shadow-md">
     <div class="flex items-center w-7/12">
         <div class="flex w-auto min-w-fit p-3">
-            <h4 class="text-lg font-semibold">{{placeholder_todo.title}}</h4>
+            <h4 class="text-lg font-semibold">{{task.title}}</h4>
         </div>
 
         <p class="flex w-11/12 text-md text-gray-500">
-            {{placeholder_todo.description}}
+            {{task.description}}
         </p>
     </div>
     <div class="flex w-4/12 items-center space-x-52">
-        <span class="text-gray-500 text-lg">Dec 01</span>
+        <span class="text-gray-500 text-lg" id="taskDueDate">Dec 01</span>
         <span class="text-green-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round"

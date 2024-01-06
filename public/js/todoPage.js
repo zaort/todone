@@ -1,17 +1,20 @@
 const todoDomSelector = {
-	title: document.querySelector("#title").value.trim(),
-	description: document.querySelector("#description").value.trim(),
-	done: document.querySelector("#cheker"),
-	date: document.querySelector("#date").value.trim(),
-	dueDate: document.querySelector("#dueDate").value.trim(),
-	delete: document.querySelector("#delete").value.trim(),
+	title: document.querySelector(".title").value.trim(),
+	description: document.querySelector(".description").value.trim(),
+	done: document.querySelector(".cheker"),
+	date: document.querySelector(".date").value.trim(),
+	dueDate: document.querySelector(".dueDate").value.trim(),
+	delete: document.querySelector(".delete").value.trim(),
 };
 
 const newTodoDomSelector = {
-	title: document.querySelector("#newTitle").value.trim(),
-	description: document.querySelector("#newdescription").value.trim(),
-	date: document.querySelector("#newDate").value.trim(),
-	dueDate: document.querySelector("#newDueDate").value.trim(),
+	title: document.querySelector("#newTaskTitle").value.trim(),
+	description: document.querySelector("#newDescription").value.trim(),
+	addTaskBtn: document.querySelector("#addNewTaskBtn"),
+	dueDate: document.querySelector("#newTaskDueDate").value.trim(),
+};
+const showNewTaskSelector = {
+	newTask: document.querySelector("#showAddFormBtn"),
 };
 
 const newTodoHandler = async event => {
@@ -32,16 +35,18 @@ const newTodoHandler = async event => {
 		});
 
 		if (response.ok) {
+			showNewTaskSelector.newTask.classList.toggle("hidden");
 			document.location.replace("/tasks");
 		} else {
+			showNewTaskSelector.newTask.classList.toggle("hidden");
 			alert("Failed to create project");
 		}
 	}
 };
 
 const deleteTodoHandler = async event => {
-	if (event.target.hasAttribute("task_id")) {
-		const id = event.target.getAttribute("task_id");
+	if (event.target.hasAttribute("taskId")) {
+		const id = event.target.getAttribute("taskId");
 
 		const response = await fetch(`/api/tasks/${id}`, {
 			method: "DELETE",
@@ -55,32 +60,10 @@ const deleteTodoHandler = async event => {
 	}
 };
 
-const updateTodoHandler = async event => {
-	if (event.target.hasAttribute("task_id")) {
-		const id = event.target.getAttribute("task_id");
-		const response = await fetch(`/api/tasks/${id}`, {
-			method: "PUT",
-			body: JSON.stringify({
-				title: todoDomSelector.title,
-				description: todoDomSelector.description,
-				dueDate: todoDomSelector.dueDate,
-				date: todoDomSelector.date,
-				done: todoDomSelector.done,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		if (response.ok) {
-			document.location.replace("/tasks");
-		} else {
-			alert("Failed to update task");
-		}
-	}
+const showNewTaskModal = async event => {
+	showNewTaskSelector.newTask.classList.toggle("hidden");
 };
 
-document.querySelector(".newTodo").addEventListener("submit", newTodoHandler);
-
-document.querySelector(".deleteTodo").addEventListener("click", deleteTodoHandler);
-
-document.querySelector(".updateTodo").addEventListener("click", updateTodoHandler);
+document.querySelector("#submitNewTask").addEventListener("submit", newTodoHandler);
+document.querySelector(".deleteTask").addEventListener("click", deleteTodoHandler);
+document.querySelector("#showAddTaskBtn").addEventListener("submit", showNewTaskModal);
