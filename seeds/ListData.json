@@ -1,0 +1,32 @@
+[
+    {
+      "title": "Work Tasks",
+      "description": "Tasks to complete for work",
+      "dueDate": "2024-02-17"
+    },
+    {
+      "title": "Personal Errands",
+      "description": "Errands to run for personal tasks",
+      "dueDate": "2042-04-08"
+    },
+    {
+      "title": "Shopping List",
+      "description": "Items to buy from the grocery store",
+      "dueDate": "2024-09-11"
+    },
+    {
+      "title": "Home Improvement",
+      "description": "Tasks to improve the home",
+      "dueDate": "2024-10-23"
+    },
+    {
+      "title": "Study Plan",
+      "description": "Plan for studying",
+      "dueDate": "2024-12-31"
+    },
+    {
+      "title": "Grocery Shopping",
+      "description": "Items to buy from the grocery store",
+      "dueDate": "2024-06-28"
+    }
+  ]
