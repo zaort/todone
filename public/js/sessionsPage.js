@@ -58,6 +58,7 @@ const signUpGetHandler = async event => {
 // TODO: Pending not sending data to create a new user, in insomnia with the same route it works
 const signUpPostHandler = async event => {
 	event.preventDefault();
+
 	if (signupDomSelector.email && signupDomSelector.password && signupDomSelector.username) {
 		const response = await fetch("/api/users/signup", {
 			method: "POST",
@@ -76,8 +77,7 @@ const signUpPostHandler = async event => {
 	}
 };
 
-document.querySelector("#submitLogIn").addEventListener("submit", loginPostHandler); 
+document.querySelector("#submitLogIn").addEventListener("click", loginPostHandler);
 document.querySelector("#logoutBtn").addEventListener("click", logout);
 document.querySelector("#signUpSubmit").addEventListener("submit", signUpPostHandler);
-
 signupDomSelector.signUpViewBtn.addEventListener("click", signUpGetHandler);
