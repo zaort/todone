@@ -38,7 +38,7 @@ router.get("/profile", middleAuth, async (req, res) => {
 		/*  res.status(200).json(user); */
 		res.render("profile", {
 			...user,
-			loggedIn: true,
+			loggedIn: req.session.loggedIn,
 		});
 	} catch (err) {
 		/* console.log(err);
