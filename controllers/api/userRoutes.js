@@ -11,6 +11,7 @@ router.post("/signup", async (req, res) => {
 		const userdbInfo = await User.create({ username, email, password });
 
 		req.session.loggedIn = true;
+		req.session.userId = userdbInfo.id;
 		res.status(200).json(userdbInfo);
 	} catch (err) {
 		console.log(err);
@@ -39,6 +40,7 @@ router.post("/login", async (req, res) => {
 		// Successfull login (what is this posting to the server? Why is this POST?)
 		req.session.save(() => {
 			req.session.loggedIn = true;
+			req.session.userId = userdbInfo.id;
 
 			res.status(200).json({ user: userdbInfo, message: "Logged in successfully" });
 		});

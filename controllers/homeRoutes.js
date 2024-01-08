@@ -28,6 +28,7 @@ router.get("/signup", async (req, res) => {
 // TODO: Verificar que la sesion se mantenga
 router.get("/profile", middleAuth, async (req, res) => {
 	try {
+		console.log(req.session);
 		// Find the logged in user based on the session ID
 		const userdbInfo = await User.findByPk(req.session.userId, {
 			attributes: { exclude: ["password"] },
@@ -36,6 +37,7 @@ router.get("/profile", middleAuth, async (req, res) => {
 
 		const user = userdbInfo.get({ plain: true });
 		/*  res.status(200).json(user); */
+		console.log(user);
 		res.render("profile", {
 			...user,
 			loggedIn: req.session.loggedIn,

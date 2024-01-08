@@ -1,4 +1,3 @@
-
 const signUpPostHandler = async event => {
 	event.preventDefault();
 	console.log("singup post loaded");
@@ -17,7 +16,7 @@ const signUpPostHandler = async event => {
 			headers: { "Content-Type": "application/json" },
 		});
 		if (response.ok) {
-			document.location.replace("/login");
+			document.location.replace("/");
 		} else {
 			alert("Failed to sign up, Please try again");
 		}
