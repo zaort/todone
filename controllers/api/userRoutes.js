@@ -7,11 +7,14 @@ const { User } = require("../../models");
 // Ruta ya funciona
 router.post("/signup", async (req, res) => {
 	try {
-		const { username, email, password } = req.body;
-		const userdbInfo = await User.create({ username, email, password });
+		const userdbInfo = await User.create(req.body);
 
-		req.session.loggedIn = true;
-		res.status(200).json(userdbInfo);
+		req.session.save(() => {
+			req.session.userId = userData.id;
+			req.session.loggedIn = true;
+			res.status(200).json(userdbInfo);
+		});
+
 	} catch (err) {
 		console.log(err);
 		res.status(500).json(err);
@@ -38,6 +41,7 @@ router.post("/login", async (req, res) => {
 		}
 		// Successfull login (what is this posting to the server? Why is this POST?)
 		req.session.save(() => {
+			req.session.userId = userdbInfo.id;
 			req.session.loggedIn = true;
 
 			res.status(200).json({ user: userdbInfo, message: "Logged in successfully" });

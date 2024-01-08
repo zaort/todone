@@ -1,32 +1,32 @@
-const todoDomSelector = {
-	title: document.querySelector(".title").value.trim(),
-	description: document.querySelector(".description").value.trim(),
-	done: document.querySelector(".cheker"),
-	date: document.querySelector(".date").value.trim(),
-	dueDate: document.querySelector(".dueDate").value.trim(),
-	delete: document.querySelector(".delete").value.trim(),
-};
+console.log("todo js");
+// const todoDomSelector = {
+// 	title: document.querySelector(".title").value.trim(),
+// 	description: document.querySelector(".description").value.trim(),
+// 	done: document.querySelector(".cheker"),
+// 	date: document.querySelector(".date").value.trim(),
+// 	dueDate: document.querySelector(".dueDate").value.trim(),
+// 	delete: document.querySelector(".delete").value.trim(),
+// };
 
-const newTodoDomSelector = {
-	title: document.querySelector("#newTaskTitle").value.trim(),
-	description: document.querySelector("#newDescription").value.trim(),
-	addTaskBtn: document.querySelector("#addNewTaskBtn"),
-	dueDate: document.querySelector("#newTaskDueDate").value.trim(),
-};
-const showNewTaskSelector = document.querySelector("#newTaskModal");
+// const newTodoDomSelector = {
+// 	title: document.querySelector("#newTaskTitle").value.trim(),
+// 	description: document.querySelector("#newDescription").value.trim(),
+// 	addTaskBtn: document.querySelector("#addNewTaskBtn"),
+// 	dueDate: document.querySelector("#newTaskDueDate").value.trim(),
+// };
+// const showNewTaskSelector = document.querySelector("#newTaskModal");
 
 const newTodoHandler = async event => {
 	event.preventDefault();
 
-	if (newtodoDomSelector.title && newtodoDomSelector.description && newtodoDomSelector.dueDate) {
+	const title = document.querySelector("#newTaskTitle").value.trim();
+	const description = document.querySelector("#newDescription").value.trim();
+	const dueDate = document.querySelector("#newTaskDueDate").value.trim();
+
+	if (title && description && dueDate) {
 		const response = await fetch(`/api/tasks`, {
 			method: "POST",
-			body: JSON.stringify({
-				title: newTodoDomSelector.title,
-				description: newTodoDomSelector.description,
-				dueDate: newTodoDomSelector.dueDate,
-				date: newTodoDomSelector.date,
-			}),
+			body: JSON.stringify({ title, description, dueDate }),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -63,4 +63,5 @@ const showNewTaskModal = async event => {
 
 document.querySelector("#submitNewTask").addEventListener("submit", newTodoHandler);
 document.querySelector(".deleteTask").addEventListener("click", deleteTodoHandler);
-document.querySelector("#showAddTaskBtn").addEventListener("submit", showNewTaskModal);
+// changed #showAddTaskBtn to #newTaskModal
+document.querySelector("#newTaskModal").addEventListener("submit", showNewTaskModal);

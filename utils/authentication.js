@@ -8,4 +8,4 @@ const middleAuth = (req, res, next) => {
    
    };
    
-module.exports = middleAuth
+module.exports = middleAuth;

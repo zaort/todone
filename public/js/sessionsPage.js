@@ -1,23 +1,26 @@
-const loginDomSelector = {
-	email: document.querySelector("#logInEmail").value.trim(),
-	password: document.querySelector("#logInPassword").value.trim(),
-	logInBtn: document.querySelector("#loginSubmit"),
-};
+// const loginDomSelector = {
+// 	email: document.querySelector("#logInEmail").value.trim(),
+// 	password: document.querySelector("#logInPassword").value.trim(),
+// 	logInBtn: document.querySelector("#loginSubmit"),
+// };
+console.log("Sessions js");
+// const signupDomSelector = {
+// 	signUpViewBtn: document.querySelector("#showSignUpForm"),
+// 	email: document.querySelector("#signUpEmail").value.trim(),
+// 	password: document.querySelector("#signUpPassword").value.trim(),
+// 	submitSignUpBtn: document.querySelector("#submitSignUp"),
+// 	username: document.querySelector("#signUpUsername").value.trim(),
+// };
 
-const signupDomSelector = {
-	signUpViewBtn: document.querySelector("#showSignUpForm"),
-	email: document.querySelector("#signUpEmail").value.trim(),
-	password: document.querySelector("#signUpPassword").value.trim(),
-	submitSignUpBtn: document.querySelector("#submitSignUp"),
-	username: document.querySelector("#signUpUsername").value.trim(),
-};
-
-const loginPostHandler = async event => {
+const loginPostHandler = async (event) => {
 	event.preventDefault();
-	if (loginDomSelector.email && loginDomSelector.password) {
+	const email = document.querySelector("#logInEmail").value.trim();
+	const password = document.querySelector("#logInPassword").value.trim();
+
+	if (email && password) {
 		const response = await fetch("/api/users/login", {
 			method: "POST",
-			body: JSON.stringify({ email: loginDomSelector.email, password: loginDomSelector.password }),
+			body: JSON.stringify({ email, password }),
 			headers: { "Content-Type": "application/json" },
 		});
 		if (response.ok) {
@@ -41,7 +44,7 @@ const logout = async () => {
 	}
 };
 
-const signUpGetHandler = async event => {
+const signUpGetHandler = async (event) => {
 	event.preventDefault();
 
 	const response = await fetch("/api/users/signup", {
@@ -56,28 +59,28 @@ const signUpGetHandler = async event => {
 };
 
 // TODO: Pending not sending data to create a new user, in insomnia with the same route it works
-const signUpPostHandler = async event => {
+const signUpPostHandler = async (event) => {
 	event.preventDefault();
+	const username = document.querySelector("#signUpUsername").value.trim();
+	const email = document.querySelector("#signUpEmail").value.trim();
+	const password = document.querySelector("#signUpPassword").value.trim();
 
-	if (signupDomSelector.email && signupDomSelector.password && signupDomSelector.username) {
+
+	if (username && email && password) {
 		const response = await fetch("/api/users/signup", {
 			method: "POST",
-			body: JSON.stringify({
-				email: loginDomSelector.email,
-				password: loginDomSelector.password,
-				username: loginDomSelector.username,
-			}),
+			body: JSON.stringify({ username, email, password }),
 			headers: { "Content-Type": "application/json" },
 		});
 		if (response.ok) {
-			document.location.replace("/login");
+			document.location.replace("/profile");
 		} else {
 			alert("Failed to sign up, Please try again");
 		}
 	}
 };
 
-document.querySelector("#submitLogIn").addEventListener("click", loginPostHandler);
+document.querySelector("#loginForm").addEventListener("submit", loginPostHandler);
 document.querySelector("#logoutBtn").addEventListener("click", logout);
-document.querySelector("#signUpSubmit").addEventListener("submit", signUpPostHandler);
+document.querySelector("#signUpForm").addEventListener("submit", signUpPostHandler);
 signupDomSelector.signUpViewBtn.addEventListener("click", signUpGetHandler);
