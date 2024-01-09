@@ -47,33 +47,14 @@ const logout = async event => {
 	}
 };
 
-const deleteTodoHandler = async event => {
-	event.preventDefault();
-	console.log("deletetask");
-	if (event.target.hasAttribute("taskId")) {
-		const id = event.target.getAttribute("taskId");
-
-		const response = await fetch(`/api/tasks/${id}`, {
-			method: "DELETE",
-		});
-
-		if (response.ok) {
-			document.location.replace("/profile");
-		} else {
-			alert("Failed to delete task");
-		}
-	}
-};
-
 document.querySelector("#logoutBtn").addEventListener("click", logout);
 
 document.querySelector(".newTaskForm").addEventListener("submit", newTodoHandler);
 
-// document.querySelector("#deleteTaskBtn").addEventListener("click", deleteTodoHandler);
 
-document.querySelector(".deleteTaskBtn").addEventListener("click", function (event) {
-	console.log("Button Clicked:", event);
-	deleteTodoHandler(event);
-});
+// document.querySelector(".deleteTaskBtn").addEventListener("click", function (event) {
+// 	console.log("Button Clicked:", event);
+// 	deleteTodoHandler(event);
+// });
 
 document.querySelector("#addTodoBtn").addEventListener("click", showNewTaskModal);
