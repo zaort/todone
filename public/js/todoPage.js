@@ -1,39 +1,26 @@
-const todoDomSelector = {
-	title: document.querySelector(".title").value.trim(),
-	description: document.querySelector(".description").value.trim(),
-	done: document.querySelector(".cheker"),
-	date: document.querySelector(".date").value.trim(),
-	dueDate: document.querySelector(".dueDate").value.trim(),
-	delete: document.querySelector(".delete").value.trim(),
-};
-
-const newTodoDomSelector = {
-	title: document.querySelector("#newTaskTitle").value.trim(),
-	description: document.querySelector("#newDescription").value.trim(),
-	addTaskBtn: document.querySelector("#addNewTaskBtn"),
-	dueDate: document.querySelector("#newTaskDueDate").value.trim(),
-};
-const showNewTaskSelector = document.querySelector("#newTaskModal");
-
 const newTodoHandler = async event => {
 	event.preventDefault();
+	console.log("newTodoHandler");
 
-	if (newtodoDomSelector.title && newtodoDomSelector.description && newtodoDomSelector.dueDate) {
+	const title = document.querySelector("#newTaskTitle").value.trim();
+	const dueDate = document.querySelector("#newTaskDueDate").value.trim();
+	const description = document.querySelector("#newDescription").value.trim();
+
+	if (title && description && dueDate) {
 		const response = await fetch(`/api/tasks`, {
 			method: "POST",
 			body: JSON.stringify({
-				title: newTodoDomSelector.title,
-				description: newTodoDomSelector.description,
-				dueDate: newTodoDomSelector.dueDate,
-				date: newTodoDomSelector.date,
+				title: title,
+				description: description,
+				dueDate: dueDate,
 			}),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
 		if (response.ok) {
-			showNewTaskSelector.classList.toggle("hidden");
-			document.location.replace("/tasks");
+			document.querySelector("#newTaskModal").classList.toggle("hidden");
+			document.location.replace("/profile");
 		} else {
 			showNewTaskSelector.newTask.classList.toggle("hidden");
 			alert("Failed to create project");
@@ -41,26 +28,33 @@ const newTodoHandler = async event => {
 	}
 };
 
-const deleteTodoHandler = async event => {
-	if (event.target.hasAttribute("taskId")) {
-		const id = event.target.getAttribute("taskId");
+const showNewTaskModal = async event => {
+	event.preventDefault();
+	document.querySelector("#newTaskModal").classList.toggle("hidden");
+};
 
-		const response = await fetch(`/api/tasks/${id}`, {
-			method: "DELETE",
-		});
+const logout = async event => {
+	event.preventDefault();
 
-		if (response.ok) {
-			document.location.replace("/tasks");
-		} else {
-			alert("Failed to delete task");
-		}
+	const response = await fetch("/api/users/logout", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+	});
+	if (response.ok) {
+		document.location.replace("/");
+	} else {
+		alert(response.statusText);
 	}
 };
 
-const showNewTaskModal = async event => {
-	showNewTaskSelector.classList.toggle("hidden");
-};
+document.querySelector("#logoutBtn").addEventListener("click", logout);
 
-document.querySelector("#submitNewTask").addEventListener("submit", newTodoHandler);
-document.querySelector(".deleteTask").addEventListener("click", deleteTodoHandler);
-document.querySelector("#showAddTaskBtn").addEventListener("submit", showNewTaskModal);
+document.querySelector(".newTaskForm").addEventListener("submit", newTodoHandler);
+
+
+// document.querySelector(".deleteTaskBtn").addEventListener("click", function (event) {
+// 	console.log("Button Clicked:", event);
+// 	deleteTodoHandler(event);
+// });
+
+document.querySelector("#addTodoBtn").addEventListener("click", showNewTaskModal);
