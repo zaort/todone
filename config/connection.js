@@ -11,7 +11,7 @@ if (process.env.JAWSDB_URL) {
   process.env.DB_USER,
   process.env.DB_PASSWORD,
   {
-   host: 'localhost',
+   host: 'https://todonev1-e2046c4cf383.herokuapp.com/',
    dialect: 'mysql',
    port: 3306,
   }
